@@ -2,6 +2,11 @@
 
 ### Testing
 
+    mocha, expect, supertest
+    
+    // uses npm, not grunt or gulp!
+    npm run test-watch
+
 ### Authentication
 
 ### Notes

@@ -27,7 +27,12 @@ app.post('/todos', (req,res)=>{
         )
 })
 
-app.listen(port, ()=>{
-    console.log('running on port ' + port);
-})
+if (!module.parent) {
+    app.listen(port, ()=>{
+        console.log('running on port ' + port);
+    })
+}
 
+
+
+module.exports = {app};
