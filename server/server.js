@@ -20,6 +20,9 @@ app.use(bodyParser.json());
 // })
 
 app.post('/todos', (req,res)=>{
+    console.log('-----------------------');
+    console.log(req.body);
+    console.log('-----------------------');
     var todo = new Todo({
         text: req.body.text
     });
