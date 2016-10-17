@@ -100,5 +100,44 @@ describe('GET /todos/:id', () => {
 
 });
 
+describe('DELETE /todos/:id', () => {
+
+    it('should remove a todo doc', (done) => {
+        var hexId = todos[1]._id.toHexString();
+        request(app)
+            .delete(`/todos/${hexId}`)
+            .expect(200)
+            .expect((res)=>{
+                expect(res.body.todo._id).toBe(hexId);
+            })
+            .end((err,res)=>{
+                if (err) { return done(err); }
+                Todo.findById(hexId)
+                    .then((todo)=>{
+                        expect(todo).toNotExist();
+                        done();
+                    })
+                    .catch(err => done(err));
+
+            })
+    });
+
+    it('should return 404 if todo not found', (done) => {
+        var wrongID = ObjectID().toHexString();
+        request(app)
+            .delete(`/todos/${wrongID}`)
+            .expect(404)
+            .end(done)
+    });
+
+    it('should return 404 for non-object ids', (done) => {
+        request(app)
+            .delete('/todos/123')
+            .expect(404)
+            .end(done)
+    });
+
+});
+
 // 1 - supertest sends the ES6 object as JSON
 // 2 - this expect is the imported library, not a method from supertest
