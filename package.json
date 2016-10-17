@@ -6,9 +6,11 @@
   "dependencies": {
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
+    "jsonwebtoken": "^7.1.9",
     "lodash": "^4.16.4",
     "mongodb": "^2.2.10",
-    "mongoose": "^4.6.3"
+    "mongoose": "^4.6.3",
+    "validator": "^6.1.0"
   },
   "devDependencies": {
     "dotenv": "^2.0.0",
