@@ -20,9 +20,6 @@ app.use(bodyParser.json());
 // })
 
 app.post('/todos', (req,res)=>{
-    console.log('-----------------------');
-    console.log(req.body);
-    console.log('-----------------------');
     var todo = new Todo({
         text: req.body.text
     });
@@ -50,14 +47,31 @@ app.get('/todos', (req,res)=>{
 })
 
 app.get('/todos/:id', (req,res)=>{
-
     var id = req.params.id
 
     if (!ObjectID.isValid(id)){
         return res.status(404).send();
     }
 
-    Todo.findById(id)
+    Todo
+        .findById(id)
+        .then((todo)=>{
+            if (!todo) { return res.status(404).send(); }
+            res.send({todo})
+        })
+        .catch((err)=>{
+            res.status(400).send();
+        })
+})
+
+app.delete('/todos/:id', (req,res)=>{
+    var id = req.params.id
+    if (!ObjectID.isValid(id)){
+        return res.status(404).send();
+    }
+
+    Todo
+        .findByIdAndRemove(id)
         .then((todo)=>{
             if (!todo) { return res.status(404).send(); }
             res.send({todo})
