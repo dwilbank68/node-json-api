@@ -52,6 +52,15 @@ UserSchema
                     });
     };
 
+UserSchema
+    .methods
+    .removeToken = function(token) {
+        var user = this;
+        return user.update({
+            $pull : { tokens: { token } }
+        })
+    }
+
 // limit the user fields that are returned to the user
 
 UserSchema
