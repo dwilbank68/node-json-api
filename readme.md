@@ -16,8 +16,8 @@ https://wilbanks-node-api.herokuapp.com/
     delete  '/todos/:id'
     patch   '/todos/:id'
     get     '/users/me'
-    post    '/users'
-    post    '/users/login'
+    post    '/users'            {email:'...', password:'...'}
+    post    '/users/login'      {email:'...', password:'...'}
     delete  '/users/me/token'
 
 ### Running it locally
