@@ -31,7 +31,7 @@ var UserSchema = new mongoose.Schema({
             required: true
         }
     }]
-})
+});
 
 UserSchema
     .methods
@@ -59,9 +59,9 @@ UserSchema
         return user.update({
             $pull : { tokens: { token } }
         })
-    }
+    };
 
-// limit the user fields that are returned to the user
+// .toJSON limits the user fields that are returned to the user
 
 UserSchema
     .methods
@@ -69,7 +69,7 @@ UserSchema
         var user = this;
         var userObject = user.toObject();
         return _.pick(userObject, ['_id', 'email']);
-    }
+    };
 
 UserSchema
     .statics
@@ -87,7 +87,7 @@ UserSchema
             'tokens.token': token,
             'tokens.access': 'auth'
         })
-    }
+    };
 
 UserSchema
     .statics
@@ -104,7 +104,7 @@ UserSchema
                     })
                 })
             })
-    }
+    };
 
 UserSchema
     .pre('save', function (next) {
@@ -115,19 +115,7 @@ UserSchema
             user.password = hash;
             next();
         })
-    })
-
-// UserSchema
-//     .pre('save', function (next) {
-//         var user = this;
-//         if(!user.isModified('password')) return next();
-//         bcrypt.hash(user.password, null, null, function(err, hash) {
-//             if(err) return next(err);
-//             user.password = hash;
-//             next();
-//         })
-//     })
-
+    });
 
 var User = mongoose.model('User', UserSchema);
 

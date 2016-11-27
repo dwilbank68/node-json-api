@@ -26,7 +26,8 @@ app.use(bodyParser.json());
 app.use(function(req,res,next){
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization');
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization, x-auth');
+    res.setHeader('Access-Control-Expose-Headers', 'x-auth');
     next();
 });
 
@@ -130,9 +131,6 @@ app.patch('/todos/:id', authenticate, (req,res) => {
         })
 })
 
-
-
-
 app.get('/users/me', authenticate, (req,res) => {
     res.send(req.user)
 })
@@ -182,13 +180,10 @@ app.delete('/users/me/token', authenticate, (req,res) => {
         )
 })
 
-
-
-
 app.listen(port, ()=>{
     console.log('running on port ' + port);
 })
 
-
-
 module.exports = {app};
+
+
